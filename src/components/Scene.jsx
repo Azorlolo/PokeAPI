@@ -1,21 +1,32 @@
 import { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
+import { Loader } from '@react-three/drei'
+import { useFocus } from '../context/focus.js'
+import CameraRig, { HOME_POSITION } from './CameraRig.jsx'
+import Room from './Room.jsx'
 
-// Conteneur 3D : caméra, lumières et contrôles.
-// Ajoute tes objets / ta scène importée à la place du commentaire ci-dessous.
 export default function Scene() {
+  const { setFocused } = useFocus()
+
   return (
-    <Canvas camera={{ position: [0, 2, 6], fov: 50 }} dpr={[1, 2]}>
-      <color attach="background" args={['#0f1117']} />
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[5, 5, 5]} intensity={1} />
+    <>
+      <Canvas
+        camera={{ position: HOME_POSITION.toArray(), fov: 60, near: 0.01, far: 100 }}
+        dpr={[1, 2]}
+        onPointerMissed={() => setFocused(null)}
+      >
+        <color attach="background" args={['#0f1117']} />
+        <hemisphereLight args={['#ffffff', '#8a6f55', 1]} />
+        <pointLight position={[0, 1.8, 0]} intensity={4} decay={1} />
+        <directionalLight position={[2, 3, 1]} intensity={1} />
 
-      <Suspense fallback={null}>
-        {/* TODO: scène / objets 3D */}
-      </Suspense>
+        <CameraRig />
 
-      <OrbitControls makeDefault enableDamping />
-    </Canvas>
+        <Suspense fallback={null}>
+          <Room />
+        </Suspense>
+      </Canvas>
+      <Loader />
+    </>
   )
 }
