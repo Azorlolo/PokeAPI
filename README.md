@@ -19,6 +19,8 @@ npm run preview  # prévisualiser le build
 
 ## Interactions
 
+Au démarrage, un tutoriel rappelle les commandes ; un clic ou une touche le ferme, la touche `I` (ou le bouton en bas à droite) l'affiche ou le masque.
+
 - Clic maintenu + glisser : la caméra tourne sur elle-même
 - Clic sur le Pokédex (sur le bureau) : il vient devant la caméra
 - Clic dans le vide ou `Échap` : il retourne sur le bureau
@@ -58,6 +60,7 @@ src/
     Room.jsx            Chambre, et extraction du Pokédex fonctionnel
     Pokedex.jsx         Déplacement, boutons et clavier du Pokédex
     PokedexScreens.jsx  Contenu des écrans
+    Tutorial.jsx        Overlay d'aide affiché au démarrage
     Focusable.jsx       Enveloppe rendant un objet cliquable / focusable
   context/              État du focus partagé
   hooks/                Chargement d'une fiche, d'une texture distante
@@ -67,5 +70,11 @@ src/
 
 ## Liens
 
-- GitHub : _à compléter_
 - Netlify : _à compléter_
+
+## Recharger les textures après changements du modèle 3D
+
+Faire la commande dans le terminal a la racine du projet :
+```Bash
+& "C:\Program Files\Blender Foundation\Blender 5.2\blender.exe" -b "C:\Users\IUT\Documents\3D\Untitled.blend" --python scripts/export_glb.py
+```

@@ -4,6 +4,7 @@ import { Loader } from '@react-three/drei'
 import { useFocus } from '../context/focus.js'
 import CameraRig, { HOME_POSITION } from './CameraRig.jsx'
 import Room from './Room.jsx'
+import Tutorial from './Tutorial.jsx'
 
 export default function Scene() {
   const { setFocused } = useFocus()
@@ -26,6 +27,7 @@ export default function Scene() {
           <Room />
         </Suspense>
       </Canvas>
+      <Tutorial />
       <Loader />
     </>
   )

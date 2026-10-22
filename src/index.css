@@ -8,4 +8,181 @@ html, body, #root {
   background: #0f1117;
 }
 
+body {
+  color: #f0f0f0;
+  font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+}
+
 canvas { display: block; touch-action: none; }
+
+/* Tutoriel affiché au démarrage (sous le Loader de drei, z-index 1000) */
+.tutorial {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  overflow-y: auto;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(3px);
+  cursor: pointer;
+  transition: opacity 300ms ease;
+}
+
+.tutorial--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tutorial__card {
+  width: min(100%, 760px);
+  /* Centré, et reste accessible au défilement s'il dépasse l'écran */
+  margin: auto;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  background: rgba(22, 25, 34, 0.94);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  transition: transform 300ms ease;
+}
+
+.tutorial--hidden .tutorial__card {
+  transform: translateY(12px) scale(0.98);
+}
+
+.tutorial__ball {
+  width: 48px;
+  height: 48px;
+}
+
+.tutorial__title {
+  margin: 0.75rem 0 0.25rem;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+}
+
+.tutorial__subtitle {
+  margin: 0;
+  color: rgba(240, 240, 240, 0.7);
+}
+
+.tutorial__steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 2rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tutorial__step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem 1rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tutorial__step h2 {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+}
+
+.tutorial__step p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: rgba(240, 240, 240, 0.75);
+}
+
+.tutorial__icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(255, 90, 60, 0.14);
+  color: #ff7a5c;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.tutorial__start {
+  padding: 0.75rem 2rem;
+  border: 0;
+  border-radius: 999px;
+  background: #cc2e0a;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.tutorial__start:hover { background: #b52808; }
+
+.tutorial__hint {
+  margin: 1rem 0 0;
+  font-size: 0.9rem;
+  color: rgba(240, 240, 240, 0.6);
+}
+
+/* Touche du clavier */
+.keycap {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.6em;
+  height: 1.6em;
+  padding: 0 0.35em;
+  border-radius: 6px;
+  background: #f0f0f0;
+  color: #111;
+  font-family: inherit;
+  font-size: 0.85em;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* Rappel permanent en bas à droite, au-dessus de l'overlay */
+.help-toggle {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 1rem 0.5rem 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(15, 17, 23, 0.85);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  color: #f0f0f0;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.help-toggle:hover { background: rgba(30, 33, 44, 0.95); }
+
+.tutorial__start:focus-visible,
+.help-toggle:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+/* Petit écran : étapes empilées, icône à gauche */
+@media (max-width: 640px) {
+  .tutorial { padding-bottom: 72px; }
+  .tutorial__card { padding: 1.5rem 1.25rem; }
+  .tutorial__steps { grid-template-columns: 1fr; margin: 1.5rem 0; }
+  .tutorial__step { flex-direction: row; align-items: flex-start; padding: 1rem; text-align: left; }
+}
